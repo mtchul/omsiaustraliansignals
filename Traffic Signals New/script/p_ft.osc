@@ -1,0 +1,10 @@
+{frame}
+
+(L.$.PoleColour) "" $=
+    {if}
+        "" (S.$.t_pole)
+    {else}
+        "pole_" (L.$.PoleColour) ".png" $+ $+ (S.$.t_pole)
+    {endif}
+
+{end}

@@ -1,0 +1,13 @@
+PedButtonDirection
+Ped_Button_Image
+PoleColour
+CapColour
+t_pole
+t_cap
+s_greenstart
+s_green
+Green
+Red
+Timegap
+Timer_Green
+Hour

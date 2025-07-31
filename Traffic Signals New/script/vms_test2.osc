@@ -1,0 +1,139 @@
+'###########################
+'Warnleuchte
+'###########################
+
+{init}
+{end}
+
+
+{frame}
+	(L.$.NoOfPages) "1" $=
+	{if}
+        (L.$.Slide1Image) "" $=
+            {if}
+                1 (S.L.RedLight1)
+            {else}
+                1 (S.L.VMS_Image_1)
+            {endif}
+	{endif}
+
+	(L.$.Slide1Image) "" $=
+		{if}
+			"" (S.$.vms_slide1)
+		{else}
+			"VMS\" (L.$.Slide1Image) ".png" $+ $+ (S.$.vms_slide1)
+		{endif}
+	
+	(L.$.Slide2Image) "" $=
+		{if}
+			"" (S.$.vms_slide2)
+		{else}
+			"VMS\" (L.$.Slide2Image) ".png" $+ $+ (S.$.vms_slide2)
+		{endif}
+
+	(L.$.Slide3Image) "" $=
+	{if}
+		"" (S.$.vms_slide3)
+	{else}
+		"VMS\" (L.$.Slide2Image) ".png" $+ $+ (S.$.vms_slide3)
+	{endif}
+
+	(L.$.NoOfPages) "2" $=
+	{if}
+		(L.L.Timer) (L.S.Timegap) + (S.L.Timer)
+		s0 2 <
+		{if}
+            (L.$.Slide1Image) "" $=
+                {if}
+                    1 (S.L.RedLight1)
+                {else}
+                    1 (S.L.VMS_Image_1)
+                {endif}
+
+            (L.$.Slide2Image) "" $=
+                {if}
+                    0 (S.L.RedLight2)
+                {else}
+                    0 (S.L.VMS_Image_2)
+                {endif}
+		{else}
+		l0 4 <
+		{if}
+            (L.$.Slide1Image) "" $=
+                {if}
+                    0 (S.L.RedLight1)
+                {else}
+                    0 (S.L.VMS_Image_1)
+                {endif}
+
+            (L.$.Slide2Image) "" $=
+                {if}
+                    1 (S.L.RedLight2)
+                {else}
+                    1 (S.L.VMS_Image_2)
+                {endif}
+		{else}
+		0 (S.L.Timer)
+		{endif}
+		{endif}
+	{endif}
+	
+	(L.$.NoOfPages) "3" $=
+	{if}
+		(L.L.Timer) (L.S.Timegap) + (S.L.Timer)
+		s0 2 <
+		{if}
+            (L.$.Slide1Image) "" $=
+            {if}
+                1 (S.L.RedLight1)
+            {else}
+                1 (S.L.VMS_Image_1)
+            {endif}
+
+        (L.$.Slide3Image) "" $=
+            {if}
+                0 (S.L.RedLight3)
+            {else}
+                0 (S.L.VMS_Image_3)
+            {endif}
+		{else}
+		l0 4 <
+		{if}
+            (L.$.Slide1Image) "" $=
+            {if}
+                0 (S.L.RedLight1)
+            {else}
+                0 (S.L.VMS_Image_1)
+            {endif}
+
+        (L.$.Slide2Image) "" $=
+            {if}
+                1 (S.L.RedLight2)
+            {else}
+                1 (S.L.VMS_Image_2)
+            {endif}
+		{else}
+		l0 6 <
+		{if}
+            (L.$.Slide2Image) "" $=
+            {if}
+                0 (S.L.RedLight2)
+            {else}
+                0 (S.L.VMS_Image_2)
+            {endif}
+
+        (L.$.Slide2Image) "" $=
+            {if}
+                1 (S.L.RedLight3)
+            {else}
+                1 (S.L.VMS_Image_3)
+            {endif}
+		{else}
+		0 (S.L.Timer)
+		{endif}
+	{endif}
+ {endif}
+{endif}
+	
+	
+{end}

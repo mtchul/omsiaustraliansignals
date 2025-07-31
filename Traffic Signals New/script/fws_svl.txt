@@ -1,0 +1,2 @@
+fw_text_1
+fw_text_2

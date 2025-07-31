@@ -1,0 +1,14 @@
+'###########################
+'Warnleuchte
+'###########################
+
+{init}
+{end}
+
+
+{frame}
+	(L.L.TrafficLightPhase) s0 6 >= l0 8 <= && ! 0.9 > (S.L.Red)
+	{if}
+		(T.L.xingbell)
+	{endif}
+{end}

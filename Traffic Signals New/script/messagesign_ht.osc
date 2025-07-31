@@ -1,0 +1,33 @@
+'###########################
+'Warnleuchte
+'###########################
+
+{init}
+{end}
+
+{frame}
+	(L.L.TrafficLightPhase) s0
+
+	l0 0 >= l0 3 <= &&
+	{if}
+		(L.L.Timer_Red) (L.S.Timegap) + (S.L.Timer_Red)
+		s0 1 <
+		{if}
+		0 (S.L.Green)
+		1 (S.L.Red)
+		{else}
+		l0 2 <
+		{if}
+		0 (S.L.Red)
+		{else}
+		0 (S.L.Timer_Red)
+		{endif}
+		{endif}
+	{endif}
+
+	l0 6 >= l0 8 <= &&
+	{if}
+		0 (S.L.Red)
+		1 (S.L.Green)
+	{endif}
+{end}

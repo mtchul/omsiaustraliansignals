@@ -1,0 +1,5 @@
+{frame}
+
+0 min 9999 max random $IntToStr (S.$.t_text)
+
+{end}

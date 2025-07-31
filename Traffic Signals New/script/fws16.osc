@@ -1,0 +1,65 @@
+{init}
+	0 (S.L.fw_timer)
+	0 (S.L.fw_1) (S.L.fw_2) (S.L.fw_3) (S.L.fw_4) (S.L.fw_5)
+    0 (S.L.fw_tm_1) (S.L.fw_tm_2)
+{end}
+
+{frame}
+    (L.S.Weather_Temperature) $msg
+    
+    l0 0 <= 
+    l0 20 >=
+    &&
+    {if}
+        1 (S.L.fw_1)
+        1 (S.L.fw_tm_1)
+        "NO RATING" (S.$.fw_text_1)
+    {endif}
+ 
+    l0 21 <= 
+    l0 31 >=
+    &&
+    {if}
+        1 (S.L.fw_2)
+        "PLAN AND" (S.$.fw_text_1)
+        "PREPARE" (S.$.fw_text_2)
+    {endif}
+
+    l0 31 <= 
+    l0 38 >=
+    &&
+    {if}
+        1 (S.L.fw_3)
+        "PREPARE" (S.$.fw_text_1)
+        "TO ACT" (S.$.fw_text_2)
+    {endif}
+
+    l0 39 <= 
+    l0 43 >=
+    && 
+    {if}
+        1 (S.L.fw_4)
+        "TAKE" (S.$.fw_text_1)
+        "ACTION NOW" (S.$.fw_text_2)
+    {endif}
+
+    l0 44 <=
+    $=
+    {if}
+        1 (S.L.fw_5)
+        "EVACUATE" (S.$.fw_text_1)
+        "NOW" (S.$.fw_text_2)
+    {endif}
+
+    l0 21 >=
+    $=
+    {if}
+        (L.L.fw_timer) (L.S.Timegap) + (S.L.fw_timer) 0.75 >
+            {if}
+                (L.L.fw_tm_1) (S.L.fw_tm_2) ! (S.L.fw_tm_1)
+                0 (S.L.fw_timer)
+            {endif}
+    {else}
+        0 (S.L.fw_tm_1) (S.L.fw_tm_2) (S.L.fw_timer)
+    {endif}
+{end}

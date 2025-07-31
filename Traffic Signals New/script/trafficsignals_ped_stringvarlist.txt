@@ -1,0 +1,11 @@
+RedorFullDisplay
+GreenDisplay
+[0]ATS[1]Braums[2]Incandescent[3]Tyco[4]CLS
+VisorType
+Yellow_Time_Text
+Yellow_Countdowntime
+Yellow_time
+IsCountdownTimer
+r_red
+r_green
+r_style

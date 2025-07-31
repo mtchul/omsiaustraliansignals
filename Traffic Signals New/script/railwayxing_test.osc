@@ -1,0 +1,54 @@
+'###########################
+'Warnleuchte
+'###########################
+
+{init}
+{end}
+
+
+{frame}
+
+	1 min 3 max random $IntToStr (S.$.s_delay)
+
+	(L.$.s_delay) "1" $=
+	{if}
+		(L.L.TrafficLightPhase) s0 6 >= l0 8 <= && !
+	{if}
+		(L.L.RailwayXing_Timer) (L.S.Timegap) + (S.L.RailwayXing_Timer)  0.75 >
+		{if}
+			(L.L.RedLight1) (S.L.RedLight2) ! (S.L.RedLight1)
+			0 (S.L.RailwayXing_Timer)
+		{endif}
+	{else}
+		0 (S.L.RedLight1) (S.L.Redlight2) (S.L.RailwayXing_Timer)
+	{endif}
+	{endif}
+	
+		(L.$.s_delay) "2" $=
+	{if}
+		(L.L.TrafficLightPhase) s0 6 >= l0 8 <= && !
+	{if}
+		(L.L.RailwayXing_Timer) (L.S.Timegap) + (S.L.RailwayXing_Timer)  1 >
+		{if}
+			(L.L.RedLight1) (S.L.RedLight2) ! (S.L.RedLight1)
+			0 (S.L.RailwayXing_Timer)
+		{endif}
+	{else}
+		0 (S.L.RedLight1) (S.L.Redlight2) (S.L.RailwayXing_Timer)
+	{endif}
+	{endif}
+	
+		(L.$.s_delay) "3" $=
+	{if}
+		(L.L.TrafficLightPhase) s0 6 >= l0 8 <= && !
+	{if}
+		(L.L.RailwayXing_Timer) (L.S.Timegap) + (S.L.RailwayXing_Timer)  1.25 >
+		{if}
+			(L.L.RedLight1) (S.L.RedLight2) ! (S.L.RedLight1)
+			0 (S.L.RailwayXing_Timer)
+		{endif}
+	{else}
+		0 (S.L.RedLight1) (S.L.Redlight2) (S.L.RailwayXing_Timer)
+	{endif}
+	{endif}
+{end}

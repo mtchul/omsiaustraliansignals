@@ -1,0 +1,43 @@
+{frame}
+    (L.L.TrafficLightPhase) s0
+
+	(L.$.PedButtonDirection) "" $=
+	{if}
+		"pedbuttonarrow_both.png" (S.$.t_pedbutton)
+	{else}
+		"pb" (L.$.PedButtonDirection) ".png" $+ $+ (S.$.t_pedbutton)
+	{endif}
+
+(L.$.PedSound) "1" $=
+    {if}
+        l0 6 >= l0 8 <= &&
+        {if}
+            (L.L.pb_greentimer) (L.S.Timegap) + (S.L.pb_greentimer)
+            s2 0.075 <
+            {if}
+                1 (S.L.pb_green_start)
+                0 (S.L.pb_green_continuous)
+            {else}
+                l2 0.075 >
+                {if}
+                    0 (S.L.pb_green_start)
+                    1 (S.L.pb_green_continuous)
+                {endif}
+            {endif}
+        {else}
+            0 (S.L.pb_green_start)
+            0 (S.L.pb_green_continuous)
+            0 (S.L.pb_greentimer)
+        {endif}
+
+        ! (S.L.pb_red)
+    {endif}
+
+(L.$.PedButtonSticker) "" $=
+    {if}
+        0 (S.L.pbs_pedbuttonsticker)
+    {else}
+        1 (S.L.pbs_pedbuttonsticker)
+        "pbs_" (L.$.PedButtonSticker) ".png" $+ $+ (S.$.t_sticker)
+    {endif}
+{end}

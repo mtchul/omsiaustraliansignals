@@ -1,0 +1,9 @@
+VisorType
+NoVisors
+TargetType
+TargetSize
+AspectSide
+IsBraums
+r_braums
+tb_front
+tb_rear

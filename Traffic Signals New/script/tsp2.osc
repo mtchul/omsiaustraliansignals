@@ -1,0 +1,15 @@
+{frame}
+(L.$.PoleColour) "" $+
+{if}
+    "pole_grey.png" (S.$.t_pole)
+{else}
+    "pole_" (L.$.PoleColour) ".png" $+ $+ (S.$.t_pole)
+{endif}
+
+(L.$.CapColour) "" $+
+{if}
+    "cap2.png" (S.$.t_cap)
+{else}
+    "pole_" (L.$.CapColour) ".png" $+ $+ (S.$.t_cap)
+{endif}
+{end}

@@ -1,0 +1,59 @@
+'###########################
+'Warnleuchte
+'###########################
+
+{init}
+{end}
+
+
+{frame}
+	(L.$.ArrowMode) "0" $=
+	{if}
+		1 (S.L.RedLight1)
+	{endif}
+
+	(L.$.ArrowMode) "Both" $=
+	{if}
+		(L.L.Timer) (L.S.Timegap) + (S.L.Timer)  1 >
+		{if}
+			(L.L.ArrowBoth) (S.L.Redlight1) ! (S.L.ArrowBoth)
+			0 (S.L.Timer)
+		{endif}
+	{else}
+		1 (S.L.RedLight1)
+	{endif}
+	
+		(L.$.ArrowMode) "Left" $=
+	{if}
+		(L.L.Timer) (L.S.Timegap) + (S.L.Timer)  1 >
+		{if}
+			(L.L.ArrowLeft) (S.L.Redlight1) ! (S.L.ArrowLeft)
+			0 (S.L.Timer)
+		{endif}
+	{else}
+		1 (S.L.RedLight1)
+	{endif}
+	
+			(L.$.ArrowMode) "Right" $=
+	{if}
+		(L.L.Timer) (L.S.Timegap) + (S.L.Timer)  1 >
+		{if}
+			(L.L.ArrowRight) (S.L.Redlight1) ! (S.L.ArrowRight)
+			0 (S.L.Timer)
+		{endif}
+	{else}
+		1 (S.L.RedLight1)
+	{endif}
+	
+		
+			(L.$.ArrowMode) "Warn" $=
+	{if}
+		(L.L.Timer) (L.S.Timegap) + (S.L.Timer)  1 >
+		{if}
+			(L.L.ArrowWarn1) (S.L.ArrowWarn2) ! (S.L.ArrowWarn1)
+			0 (S.L.Timer)
+		{endif}
+	{else}
+		1 (S.L.RedLight1)
+	{endif}
+{end}

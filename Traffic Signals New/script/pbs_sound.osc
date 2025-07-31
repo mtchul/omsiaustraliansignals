@@ -1,0 +1,65 @@
+'#######################################
+'Australian Pedestrian Light
+'#######################################
+
+'Phases:
+' 0..5: Red
+' 6..8: Green
+'9..11: Flashing Red
+'Else : Off
+
+{init}
+	(L.S.Time) 3600 / trunc (S.L.Hour)
+{end}
+
+{frame}
+	(L.L.TrafficLightPhase) s0
+	
+	l0 6 >= l0 8 <= &&
+    {if}
+        (L.L.Timer_Green) (L.S.Timegap) + (S.L.Timer_Green)
+        s2 0.075 <
+        {if}
+            1 (S.L.Green_Sound_Start)
+            0 (S.L.Green_Sound_Continuous)
+        {else}
+            l2 0.075 >
+            {if}
+                0 (S.L.Green_Sound_Start)
+                1 (S.L.Green_Sound_Continuous)
+            {endif}
+        {endif}
+    {else}
+        0 (S.L.Green_Sound_Start)
+        0 (S.L.Green_Sound_Continuous)
+        0 (S.L.Timer_Green)
+    {endif}
+	
+	! (S.L.Red)
+	
+	(L.$.PedButtonDirection) "" $=
+	{if}
+		"pedbuttonarrow_both.png" (S.$.Ped_Button_Image)
+	{else}
+		"pb" (L.$.PedButtonDirection) ".png" $+ $+ (S.$.Ped_Button_Image)
+	{endif}
+	
+	(L.$.PoleColour) "" $=
+{if}
+    "pole_grey.png" (S.$.t_pole)
+{else}
+    "pole_" (L.$.PoleColour) ".png" $+ $+ (S.$.t_pole)
+{endif}
+
+(L.$.CapColour) "" $= (L.$.PoleColour) "nz" $= &&
+{if}
+	"pole_black.png" (S.$.t_cap)
+	{else}
+		(L.$.CapColour) "" $=
+			{if}
+    			"cap2.bmp" (S.$.t_cap)
+			{else}
+    			"pole_" (L.$.CapColour) ".png" $+ $+ (S.$.t_cap)
+			{endif}
+		{endif}
+{end}

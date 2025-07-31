@@ -1,0 +1,23 @@
+{frame}
+	(L.L.TrafficLightPhase) s0
+
+    l0 6 >= l0 8 <= &&
+    {if}
+        (L.L.Timer_Green) (L.S.Timegap) + (S.L.Timer_Green)
+        s2 0.1 <
+        {if}
+            1 (S.L.Green_Sound_Start)
+            0 (S.L.Green_Sound_Continuous)
+        {else}
+            l2 0.1 >
+            {if}
+                0 (S.L.Green_Sound_Start)
+                1 (S.L.Green_Sound_Continuous)
+            {endif}
+        {endif}
+    {else}
+        0 (S.L.Green_Sound_Start)
+        0 (S.L.Green_Sound_Continuous)
+        0 (S.L.Timer_Green)
+    {endif}
+{end}

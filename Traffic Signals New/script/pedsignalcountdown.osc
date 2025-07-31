@@ -1,0 +1,47 @@
+'######################## 
+'Traffic Light Countdown Script
+'########################
+
+'Traffic Light Countdown at specific time before changing
+
+'Script Version: 1.0
+
+'Needs:
+'- Set S.L.Yellow_Start_Countdown for Red light countdown time in seconds
+
+
+{init}
+0 (S.L.Yellow_Start_Countdown) (S.L.Yellow_light_duration)
+{end}
+
+{frame}
+(L.L.Yellow_light_duration) 0 =
+{if}
+    (L.$.Yellow_time) $StrToFloat (S.L.Yellow_light_duration)
+{endif}
+
+(L.L.TrafficLightPhase) s0
+
+l0 9 >= l0 11 <= &&
+{if}
+    (L.L.Yellow_time_elapsed) (L.S.Timegap) + (S.L.Yellow_time_elapsed)
+
+    (L.L.Yellow_light_duration) (L.L.Yellow_time_elapsed) - (S.L.Yellow_time_left)
+
+    (L.L.Yellow_time_left) " 2" $IntToStrEnh (S.$.Yellow_Time_Text)
+
+    (L.$.Yellow_Countdowntime) $StrToFloat (S.L.Yellow_Start_Countdown)
+
+    (S.L.Yellow_time_left) (S.L.Yellow_Start_Countdown) <= (S.L.Yellow_time_left) 0 > &&
+    {if}
+         1 (S.L.Yellow_Timer_Vis)
+    {else}
+         0 (S.L.Yellow_Timer_Vis)
+    {endif}
+{else}
+0 (S.L.Yellow_time_elapsed)
+0 (S.L.Yellow_Timer_Vis)
+{endif}
+
+1 (S.L.Refresh_Strings)
+{end}

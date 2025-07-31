@@ -1,0 +1,62 @@
+{frame}
+
+    (L.L.TrafficLightPhase) s0
+
+    l0 6 >= l0 8 <= &&
+	{if}
+    
+    0 (S.L.YWarn)
+
+    {else}
+        (L.$.YellowDelay) "1" $=
+        {if}
+            (L.L.YWarn_Timer) (L.S.Timegap) + (S.L.YWarn_Timer)
+            s0 0.5 <
+            {if}
+                0 (S.L.YWarn)
+            {else}
+            l0 1 <
+            {if}
+                1 (S.L.YWarn)
+            {else}
+                0 (S.L.YWarn_Timer) 
+                0 (S.L.YWarn) 
+            {endif}
+            {endif}
+        {else}
+            (L.L.YWarn_Timer) (L.S.Timegap) + (S.L.YWarn_Timer)
+            s0 0.5 <
+            {if}
+                1 (S.L.YWarn)
+            {else}
+            l0 1 <
+            {if}
+                0 (S.L.YWarn)
+            {else}
+                0 (S.L.YWarn_Timer) 
+                0 (S.L.YWarn) 
+            {endif}
+            {endif}
+        {endif}
+    {endif}
+
+    (L.$.Visor) "o" $=
+            {if}
+                1 (S.L.O_Visor)
+            {endif}
+
+    (L.$.Visor) "2" $=
+            {if}
+                1 (S.L.2_Visor)
+            {endif}
+
+    (L.$.Visor) "3" $=
+            {if}
+                1 (S.L.3_Visor)
+            {endif}
+        
+    (L.$.Visor) "s" $=
+            {if}
+                1 (S.L.S_Visor)
+            {endif}
+{end}

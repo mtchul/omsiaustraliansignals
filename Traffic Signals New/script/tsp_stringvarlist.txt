@@ -1,0 +1,4 @@
+PoleColour
+CapColour
+t_pole
+t_cap

@@ -1,0 +1,12 @@
+v_g_o
+v_g_2
+v_g_3
+v_g_s
+v_y_o
+v_y_2
+v_y_3
+v_y_s
+v_r_o
+v_r_2
+v_r_3
+v_r_s

@@ -1,0 +1,58 @@
+'###########################
+'Warnleuchte
+'###########################
+
+{init}
+{end}
+
+
+{frame}
+	(L.$.NoOfPages) "1" $=
+	{if}
+		1 (S.L.RedLight1)
+	{endif}
+	
+	(L.$.NoOfPages) "2" $=
+	{if}
+		(L.L.Timer) (L.S.Timegap) + (S.L.Timer)
+		s0 2 <
+		{if}
+		0 (S.L.RedLight2)
+		1 (S.L.RedLight1)
+		{else}
+		l0 4 <
+		{if}
+		0 (S.L.RedLight1)
+		1 (S.L.RedLight2)
+		{else}
+		0 (S.L.Timer)
+		{endif}
+		{endif}
+	{endif}
+	
+	(L.$.NoOfPages) "3" $=
+	{if}
+		(L.L.Timer) (L.S.Timegap) + (S.L.Timer)
+		s0 2 <
+		{if}
+		0 (S.L.RedLight3)
+		1 (S.L.RedLight1)
+		{else}
+		l0 4 <
+		{if}
+		0 (S.L.RedLight1)
+		1 (S.L.RedLight2)
+		{else}
+		l0 6 <
+		{if}
+		0 (S.L.RedLight2)
+		1 (S.L.RedLight3)
+		{else}
+		0 (S.L.Timer)
+		{endif}
+	{endif}
+ {endif}
+{endif}
+	
+	
+{end}

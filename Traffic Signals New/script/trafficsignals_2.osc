@@ -1,0 +1,948 @@
+{frame}
+
+    (L.$.1Braums2Incandescent) "2" $=
+    {if}
+        1 (S.L.Illumination)
+   
+       (L.L.TrafficLightPhase) s0 0 >= l0 3 <= &&
+       {if}
+           (L.L.Timer_Red_I) (L.S.Timegap) 10 * + 0 max 1 min (S.L.Timer_Red_I) sqr (S.L.Red_i)
+           (L.L.Timer_Yellow_I) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Yellow_I) sqr (S.L.Yellow_i)
+           (L.L.Timer_Green_I) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Green_I) sqr (S.L.Green_i)
+       {else}
+           (L.L.TrafficLightPhase) s0 6 >= l0 8 <= &&
+           {if}
+               (L.L.Timer_Red_I) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Red_I) sqr (S.L.Red_i)
+               (L.L.Timer_Yellow_I) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Yellow_I) sqr (S.L.Yellow_i)
+               (L.L.Timer_Green_I) (L.S.Timegap) 10 * + 0 max 1 min (S.L.Timer_Green_I) sqr (S.L.Green_i)
+           {else}
+               (L.L.TrafficLightPhase) s0 9 >= l0 11 <= &&
+               {if}
+                   (L.L.Timer_Red_I) (L.S.Timegap) 10 * - 0 max 1 min (S.L.Timer_Red_I) sqr (S.L.Red_i)
+                   (L.L.Timer_Yellow_I) (L.S.Timegap) 5 * + 0 max 1 min (S.L.Timer_Yellow_I) sqr (S.L.Yellow_i)
+                   (L.L.Timer_Green_I) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Green_I) sqr (S.L.Green_i)
+               {else}
+                   (L.L.Timer_Red_I) (L.S.Timegap) 10 * - 0 max 1 min (S.L.Timer_Red_I) sqr (S.L.Red_i)
+                   (L.L.Timer_Yellow_I) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Yellow_I) sqr (S.L.Yellow_i)
+                   (L.L.Timer_Green_I) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Green_I) sqr (S.L.Green_i)
+               {endif}
+           {endif}
+       {endif}
+   {else} 
+    (L.L.TrafficLightPhase) s0
+
+    (L.$.RedorFullDisplay) "bp" $=
+    {if}
+       "signal_body_bp.tga" (S.$.r_red_bp)
+       0 (S.L.Red)
+    {else} 
+        (L.$.RedorFullDisplay) "off" $=
+    {if}
+       0 (S.L.Red)
+    {else} 
+        l0 0 >= l0 3 <= &&
+        {if}
+            (L.L.Timer_Red) (L.S.Timegap) + (S.L.Timer_Red)
+            s1 0.125 <
+            {if}
+                0 (S.L.Red)
+            {else}
+                l1 0.125 >
+                {if}
+                    1 (S.L.Red)
+                {endif}
+            {endif}
+        {else}
+            0 (S.L.Red)
+            0 (S.L.Timer_Red)
+        {endif}
+    {endif}
+{endif}
+  
+(L.$.GreenDisplay) "bp" $=     
+   {if}
+       "signal_body_bp.tga" (S.$.r_green_bp)
+       0 (S.L.Green)
+   {else}
+    (L.$.GreenDisplay) "off" $=     
+        {if}
+            0 (S.L.Green)
+        {else}
+        l0 6 >= l0 8 <= &&
+        {if}
+            (L.L.Timer_Green) (L.S.Timegap) + (S.L.Timer_Green)
+            s2 0.075 <
+            {if}
+                0 (S.L.Green)
+            {else}
+                l2 0.075 >
+                {if}
+                    1 (S.L.Green)
+                {endif}
+            {endif}
+        {else}
+            0 (S.L.Green)
+            0 (S.L.Timer_Green)
+        {endif}
+    {endif}
+{endif}
+
+(L.$.YellowDisplay) "bp" $= 
+{if}
+   "signal_body_bp.tga" (S.$.r_yellow_bp)
+   0 (S.L.Yellow)
+{else}
+    (L.$.YellowDisplay) "off" $= 
+        {if}
+        0 (S.L.Yellow)
+        {else}
+        l0 4 >= l0 5 <= &&
+        {if}
+            (L.S.GetTime) (L.L.Time_last) - 0.5 >
+            {if}
+                (L.S.GetTime) (S.L.Time_last)
+                (L.L.Yellow) ! (S.L.Yellow)
+            {endif}	
+        {else}
+            l0 9 >= l0 11 <= &&
+            {if}
+                (L.L.Timer_Yellow) (L.S.Timegap) + (S.L.Timer_Yellow)
+                s1 0.075 <
+                {if}
+                    0 (S.L.Yellow)
+                {else}
+                    l1 0.075 >
+                    {if}
+                        1 (S.L.Yellow)
+                    {endif}
+                {endif}
+            {else}
+                0 (S.L.Yellow)
+                0 (S.L.Timer_Yellow)
+            {endif}
+        {endif}
+        {endif}
+    {endif}
+{endif}
+
+(L.$.1Braums2Incandescent) "1" $=
+{if}
+   (L.$.RedorFullDisplay) "" $= 
+   {if} 
+           "200mm_r_b.png" (S.$.r_red) 
+   {else} 
+           "CustomAspects\200mm\" (L.$.RedorFullDisplay) "_b.png" $+ $+ (S.$.r_red) 
+   {endif}
+   
+   (L.$.YellowDisplay) "" $= 
+   {if}
+    (L.$.RedorFullDisplay) "" $= 
+    {if} 
+            "200mm_r_b.png" (S.$.r_yellow) 
+    {else} 
+            "CustomAspects\200mm\" (L.$.RedorFullDisplay) "_b.png" $+ $+ (S.$.r_yellow) 
+    {endif}
+   {else}
+       "CustomAspects\200mm\" (L.$.YellowDisplay) "_b.png" $+ $+ (S.$.r_yellow) 
+   {endif}
+   
+   (L.$.GreenDisplay) "" $= 
+   {if}
+    (L.$.RedorFullDisplay) "" $= 
+    {if} 
+            "200mm_r_b.png" (S.$.r_green) 
+    {else} 
+            "CustomAspects\200mm\" (L.$.RedorFullDisplay) "_b.png" $+ $+ (S.$.r_green) 
+    {endif}
+   {else}
+       "CustomAspects\200mm\" (L.$.GreenDisplay) "_b.png" $+ $+ (S.$.r_green) 
+   {endif}
+{endif}
+
+(L.$.1Braums2Incandescent) "" $=
+{if}
+   (L.$.RedorFullDisplay) "" $= 
+   {if} 
+           "200mm_r.png" (S.$.r_red) 
+   {else} 
+           "CustomAspects\200mm\" (L.$.RedorFullDisplay) ".png" $+ $+ (S.$.r_red) 
+   {endif}
+   
+   (L.$.YellowDisplay) "" $= 
+   {if}
+    (L.$.RedorFullDisplay) "" $= 
+    {if} 
+            "200mm_r.png" (S.$.r_yellow) 
+    {else} 
+            "CustomAspects\200mm\" (L.$.RedorFullDisplay) ".png" $+ $+ (S.$.r_yellow) 
+    {endif}
+   {else}
+       "CustomAspects\200mm\" (L.$.YellowDisplay) ".png" $+ $+ (S.$.r_yellow) 
+   {endif}
+   
+   (L.$.GreenDisplay) "" $= 
+   {if}
+    (L.$.RedorFullDisplay) "" $= 
+    {if} 
+            "200mm_r.png" (S.$.r_green) 
+    {else} 
+            "CustomAspects\200mm\" (L.$.RedorFullDisplay) ".png" $+ $+ (S.$.r_green) 
+    {endif}
+   {else}
+       "CustomAspects\200mm\" (L.$.GreenDisplay) ".png" $+ $+ (S.$.r_green) 
+   {endif}
+{endif}
+
+(L.$.1Braums2Incandescent) "2" $=
+{if}
+   (L.$.RedorFullDisplay) "" $= 
+   {if} 
+           "200mm_r_i.png" (S.$.r_red) 
+   {else} 
+           "CustomAspects\200mm\" (L.$.RedorFullDisplay) "_i.png" $+ $+ (S.$.r_red) 
+   {endif}
+   
+   (L.$.YellowDisplay) "" $= 
+   {if}
+    (L.$.RedorFullDisplay) "" $= 
+   {if} 
+           "200mm_r_i.png" (S.$.r_yellow) 
+   {else} 
+           "CustomAspects\200mm\" (L.$.RedorFullDisplay) "_i.png" $+ $+ (S.$.r_yellow) 
+   {endif}
+   {else}
+            "CustomAspects\200mm\" (L.$.YellowDisplay) "_i.png" $+ $+ (S.$.r_yellow) 
+   {endif}
+   
+   (L.$.GreenDisplay) "" $= 
+   {if}
+    (L.$.RedorFullDisplay) "" $= 
+   {if} 
+           "200mm_r_i.png" (S.$.r_green) 
+   {else} 
+           "CustomAspects\200mm\" (L.$.RedorFullDisplay) "_i.png" $+ $+ (S.$.r_green) 
+   {endif}
+   {else}
+            "CustomAspects\200mm\" (L.$.GreenDisplay) "_i.png" $+ $+ (S.$.r_green) 
+   {endif}
+{endif}
+
+
+(L.$.VisorType) "Open" $=
+{if}
+    (L.$.NoVisors) "1" $=
+	{if}
+        1 (S.L.Open_1)
+    {endif}
+
+    (L.$.NoVisors) "2" $=
+	{if}
+        1 (S.L.Open_2)
+    {endif}
+
+    (L.$.NoVisors) "3" $=
+	{if}
+        1 (S.L.Open_3)
+    {endif}
+
+    (L.$.NoVisors) "4" $=
+	{if}
+        1 (S.L.Open_4)
+    {endif}
+{endif}
+	
+(L.$.VisorType) "200mm" $=
+{if}
+    (L.$.NoVisors) "1" $=
+	{if}
+        1 (S.L.200mm_1)
+    {endif}
+
+    (L.$.NoVisors) "2" $=
+	{if}
+        1 (S.L.200mm_2)
+    {endif}
+
+    (L.$.NoVisors) "3" $=
+	{if}
+        1 (S.L.200mm_3)
+    {endif}
+
+    (L.$.NoVisors) "4" $=
+	{if}
+        1 (S.L.200mm_4)
+    {endif}
+{endif}
+
+(L.$.VisorType) "300mm" $=
+{if}
+    (L.$.NoVisors) "1" $=
+	{if}
+        1 (S.L.300mm_1)
+    {endif}
+
+    (L.$.NoVisors) "2" $=
+	{if}
+        1 (S.L.300mm_2)
+    {endif}
+
+    (L.$.NoVisors) "3" $=
+	{if}
+        1 (S.L.300mm_3)
+    {endif}
+
+    (L.$.NoVisors) "4" $=
+	{if}
+        1 (S.L.300mm_4)
+    {endif}
+{endif}
+
+(L.$.VisorType) "Square" $=
+{if}
+    (L.$.NoVisors) "1" $=
+	{if}
+        1 (S.L.Square_1)
+    {endif}
+
+    (L.$.NoVisors) "2" $=
+	{if}
+        1 (S.L.Square_2)
+    {endif}
+
+    (L.$.NoVisors) "3" $=
+	{if}
+        1 (S.L.Square_3)
+    {endif}
+
+    (L.$.NoVisors) "4" $=
+	{if}
+        1 (S.L.Square_4)
+    {endif}
+{endif}
+
+(L.$.TargetType) "B" $=
+{if}
+    (L.$.TargetSize) "1" $=
+	{if}
+        1 (S.L.TB_B_1x1)
+    {endif}
+
+    (L.$.TargetSize) "2" $=
+	{if}
+        1 (S.L.TB_B_2x1)
+    {endif}
+
+    (L.$.TargetSize) "3" $=
+	{if}
+        (L.$.AspectSide) "L" $=
+			{if}
+				1 (S.L.TB_B_3x1L)
+			{endif}
+			
+		(L.$.AspectSide) "R" $=
+			{if}
+				1 (S.L.TB_B_3x1R)
+			{endif}
+			
+		(L.$.AspectSide) "J" $=
+			{if}
+				1 (S.L.TB_B_3x1J)
+			{endif}
+			
+		(L.$.AspectSide) "" $=
+			{if}
+				1 (S.L.TB_B_3x1)
+			{endif}
+			
+    {endif}
+
+     (L.$.TargetSize) "4" $=
+	{if}
+        (L.$.AspectSide) "L" $=
+			{if}
+				1 (S.L.TB_B_4x1L)
+			{endif}
+			
+		(L.$.AspectSide) "R" $=
+			{if}
+				1 (S.L.TB_B_4x1R)
+			{endif}
+			
+		(L.$.AspectSide) "J" $=
+			{if}
+				1 (S.L.TB_B_4x1J)
+			{endif}
+			
+			(L.$.AspectSide) "" $=
+			{if}
+				1 (S.L.TB_B_4x1)
+			{endif}
+    {endif}
+{endif}
+
+(L.$.TargetType) "NB" $=
+{if}
+    (L.$.TargetSize) "1" $=
+	{if}
+        1 (S.L.TB_NB_1x1)
+    {endif}
+
+    (L.$.TargetSize) "2" $=
+	{if}
+        1 (S.L.TB_NB_2x1)
+    {endif}
+
+    (L.$.TargetSize) "3" $=
+	{if}
+        (L.$.AspectSide) "L" $=
+			{if}
+				1 (S.L.TB_NB_3x1L)
+			{endif}
+			
+		(L.$.AspectSide) "R" $=
+			{if}
+				1 (S.L.TB_NB_3x1R)
+			{endif}
+			
+		(L.$.AspectSide) "J" $=
+			{if}
+				1 (S.L.TB_NB_3x1J)
+			{endif}
+			
+		(L.$.AspectSide) "" $=
+			{if}
+				1 (S.L.TB_NB_3x1)
+			{endif}
+			
+    {endif}
+
+     (L.$.TargetSize) "4" $=
+	{if}
+        (L.$.AspectSide) "L" $=
+			{if}
+				1 (S.L.TB_NB_4x1L)
+			{endif}
+			
+		(L.$.AspectSide) "R" $=
+			{if}
+				1 (S.L.TB_NB_4x1R)
+			{endif}
+			
+		(L.$.AspectSide) "J" $=
+			{if}
+				1 (S.L.TB_NB_4x1J)
+			{endif}
+			
+		(L.$.AspectSide) "" $=
+			{if}
+				1 (S.L.TB_NB_4x1)
+			{endif}
+    {endif}
+{endif}
+
+(L.$.TargetType) "W" $=
+{if}
+    (L.$.TargetSize) "1" $=
+	{if}
+        1 (S.L.TB_WA_1x1)
+    {endif}
+
+    (L.$.TargetSize) "2" $=
+	{if}
+        1 (S.L.TB_WA_2x1)
+    {endif}
+
+    (L.$.TargetSize) "3" $=
+	{if}
+        (L.$.AspectSide) "L" $=
+			{if}
+				1 (S.L.TB_WA_3x1L)
+			{endif}
+			
+		(L.$.AspectSide) "R" $=
+			{if}
+				1 (S.L.TB_WA_3x1R)
+			{endif}
+			
+		(L.$.AspectSide) "J" $=
+			{if}
+				1 (S.L.TB_WA_3x1J)
+			{endif}
+			
+		(L.$.AspectSide) "" $=
+			{if}
+				1 (S.L.TB_WA_3x1)
+			{endif}
+			
+    {endif}
+
+     (L.$.TargetSize) "4" $=
+	{if}
+        (L.$.AspectSide) "L" $=
+			{if}
+				1 (S.L.TB_WA_4x1L)
+			{endif}
+			
+		(L.$.AspectSide) "R" $=
+			{if}
+				1 (S.L.TB_WA_4x1R)
+			{endif}
+			
+		(L.$.AspectSide) "J" $=
+			{if}
+				1 (S.L.TB_WA_4x1J)
+			{endif}
+    {endif}
+{endif}
+
+(L.$.VisorType) "o1" $= (L.$.VisorType) "O1" $= ||
+{if}
+    1 (S.L.Open_1)
+{else}
+    (L.$.VisorType) "o2" $= (L.$.VisorType) "O2" $= ||
+    {if}
+        1 (S.L.Open_2)
+    {else}
+        (L.$.VisorType) "o3" $= (L.$.VisorType) "O3" $= ||
+        {if}
+            1 (S.L.Open_3)
+        {else}
+            (L.$.VisorType) "o4" $= (L.$.VisorType) "O4" $= ||
+            {if}
+                1 (S.L.Open_4)
+            {endif}
+        {endif}
+    {endif}
+{endif}
+
+(L.$.VisorType) "21" $= 
+{if}
+    1 (S.L.200mm_1)
+{else}
+    (L.$.VisorType) "22" $=
+    {if}
+        1 (S.L.200mm_2)
+    {else}
+        (L.$.VisorType) "23" $=
+        {if}
+            1 (S.L.200mm_3)
+        {else}
+            (L.$.VisorType) "24" $= 
+            {if}
+                1 (S.L.200mm_4)
+            {endif}
+        {endif}
+    {endif}
+{endif}
+
+(L.$.VisorType) "31" $= 
+{if}
+    1 (S.L.300mm_1)
+{else}
+    (L.$.VisorType) "32" $=
+    {if}
+        1 (S.L.300mm_2)
+    {else}
+        (L.$.VisorType) "33" $=
+        {if}
+            1 (S.L.300mm_3)
+        {else}
+            (L.$.VisorType) "34" $= 
+            {if}
+                1 (S.L.300mm_4)
+            {endif}
+        {endif}
+    {endif}
+{endif}
+
+(L.$.VisorType) "s1" $= (L.$.VisorType) "S1" $= ||
+{if}
+    1 (S.L.Square_1)
+{else}
+    (L.$.VisorType) "s2" $= (L.$.VisorType) "S2" $= ||
+    {if}
+        1 (S.L.Square_2)
+    {else}
+        (L.$.VisorType) "s3" $= (L.$.VisorType) "S3" $= ||
+        {if}
+            1 (S.L.Square_3)
+        {else}
+            (L.$.VisorType) "s4" $= (L.$.VisorType) "S4" $= ||
+            {if}
+                1 (S.L.Square_4)
+            {endif}
+        {endif}
+    {endif}
+{endif}
+
+(L.$.TargetType) "b1" $= (L.$.TargetType) "B1" $= ||
+{if}
+    1 (S.L.TB_1x1)
+    "tb_border.png" (S.$.tb_front)
+    "tb_noborder.png" (S.$.tb_rear)
+{else}
+    (L.$.TargetType) "b1l" $= (L.$.TargetType) "B1L" $= ||
+    {if}
+        1 (S.L.TB_1x1L)
+        "tb_border.png" (S.$.tb_front)
+        "tb_noborder.png" (S.$.tb_rear)
+    {else}
+        (L.$.TargetType) "b1r" $= (L.$.TargetType) "B1R" $= ||
+        {if}
+            1 (S.L.TB_1x1L)
+            "tb_border.png" (S.$.tb_front)
+            "tb_noborder.png" (S.$.tb_rear)
+        {else}
+            (L.$.TargetType) "b2" $= (L.$.TargetType) "B2" $= ||
+            {if}
+                1 (S.L.TB_2x1)
+                "tb_border.png" (S.$.tb_front)
+                "tb_noborder.png" (S.$.tb_rear)  
+            {else}
+                (L.$.TargetType) "b2l" $= (L.$.TargetType) "B2L" $= ||
+                {if}
+                    1 (S.L.TB_2x1L)
+                    "tb_border.png" (S.$.tb_front)
+                    "tb_noborder.png" (S.$.tb_rear)  
+                {else}
+                    (L.$.TargetType) "b2r" $= (L.$.TargetType) "B2R" $= ||
+                    {if}
+                        1 (S.L.TB_2x1R)
+                        "tb_border.png" (S.$.tb_front)
+                        "tb_noborder.png" (S.$.tb_rear)  
+                    {else}
+                        (L.$.TargetType) "b3" $= (L.$.TargetType) "B3" $= ||
+                        {if}
+                            1 (S.L.TB_3x1)
+                            "tb_border.png" (S.$.tb_front)
+                            "tb_noborder.png" (S.$.tb_rear)
+                        {else}
+                            (L.$.TargetType) "b3l" $= (L.$.TargetType) "B3L" $= ||
+                            {if}
+                                1 (S.L.TB_3x1L)
+                                "tb_border.png" (S.$.tb_front)
+                                "tb_noborder.png" (S.$.tb_rear)
+                            {else}
+                                (L.$.TargetType) "b3r" $= (L.$.TargetType) "B3R" $= ||
+                                {if}
+                                    1 (S.L.TB_3x1R)
+                                    "tb_border.png" (S.$.tb_front)
+                                    "tb_noborder.png" (S.$.tb_rear)
+                                {else}
+                                    (L.$.TargetType) "b3j" $= (L.$.TargetType) "B3J" $= ||
+                                    {if}
+                                        1 (S.L.TB_3x1J)
+                                        "tb_border.png" (S.$.tb_front)
+                                        "tb_noborder.png" (S.$.tb_rear)
+                                    {endif}
+                                {endif}
+                            {endif}
+                        {endif}
+                    {endif}
+                {endif}
+            {endif}
+        {endif}
+    {endif}
+{endif}
+
+(L.$.TargetType) "nb1" $= (L.$.TargetType) "NB1" $= ||
+{if}
+    1 (S.L.TB_1x1)
+    "tb_noborder.png" (S.$.tb_front)
+    "tb_noborder.png" (S.$.tb_rear)
+{else}
+    (L.$.TargetType) "nb1l" $= (L.$.TargetType) "NB1L" $= ||
+    {if}
+        1 (S.L.TB_1x1L)
+        "tb_noborder.png" (S.$.tb_front)
+        "tb_noborder.png" (S.$.tb_rear)
+    {else}
+        (L.$.TargetType) "nb1r" $= (L.$.TargetType) "NB1R" $= ||
+        {if}
+            1 (S.L.TB_1x1L)
+            "tb_noborder.png" (S.$.tb_front)
+            "tb_noborder.png" (S.$.tb_rear)
+        {else}
+            (L.$.TargetType) "nb2" $= (L.$.TargetType) "NB2" $= ||
+            {if}
+                1 (S.L.TB_2x1)
+                "tb_noborder.png" (S.$.tb_front)
+                "tb_noborder.png" (S.$.tb_rear)  
+            {else}
+                (L.$.TargetType) "nb2l" $= (L.$.TargetType) "NB2L" $= ||
+                {if}
+                    1 (S.L.TB_2x1L)
+                    "tb_noborder.png" (S.$.tb_front)
+                    "tb_noborder.png" (S.$.tb_rear)  
+                {else}
+                    (L.$.TargetType) "nb2r" $= (L.$.TargetType) "NB2R" $= ||
+                    {if}
+                        1 (S.L.TB_2x1R)
+                        "tb_noborder.png" (S.$.tb_front)
+                        "tb_noborder.png" (S.$.tb_rear)  
+                    {else}
+                        (L.$.TargetType) "nb3" $= (L.$.TargetType) "NB3" $= ||
+                        {if}
+                            1 (S.L.TB_3x1)
+                            "tb_noborder.png" (S.$.tb_front)
+                            "tb_noborder.png" (S.$.tb_rear)
+                        {else}
+                            (L.$.TargetType) "nb3l" $= (L.$.TargetType) "NB3L" $= ||
+                            {if}
+                                1 (S.L.TB_3x1L)
+                                "tb_noborder.png" (S.$.tb_front)
+                                "tb_noborder.png" (S.$.tb_rear)
+                            {else}
+                                (L.$.TargetType) "nb3r" $= (L.$.TargetType) "NB3R" $= ||
+                                {if}
+                                    1 (S.L.TB_3x1R)
+                                    "tb_noborder.png" (S.$.tb_front)
+                                    "tb_noborder.png" (S.$.tb_rear)
+                                {else}
+                                    (L.$.TargetType) "nb3j" $= (L.$.TargetType) "NB3J" $= ||
+                                    {if}
+                                        1 (S.L.TB_3x1J)
+                                        "tb_noborder.png" (S.$.tb_front)
+                                        "tb_noborder.png" (S.$.tb_rear)
+                                    {endif}
+                                {endif}
+                            {endif}
+                        {endif}
+                    {endif}
+                {endif}
+            {endif}
+        {endif}
+    {endif}
+{endif}
+
+(L.$.TargetType) "w1" $= (L.$.TargetType) "W1" $= ||
+{if}
+    1 (S.L.TB_1x1)
+    "tb_border.png" (S.$.tb_front)
+    "tb_border.png" (S.$.tb_rear)
+{else}
+    (L.$.TargetType) "w1l" $= (L.$.TargetType) "W1L" $= ||
+    {if}
+        1 (S.L.TB_1x1L)
+        "tb_border.png" (S.$.tb_front)
+        "tb_border.png" (S.$.tb_rear)
+    {else}
+        (L.$.TargetType) "w1r" $= (L.$.TargetType) "W1R" $= ||
+        {if}
+            1 (S.L.TB_1x1L)
+            "tb_border.png" (S.$.tb_front)
+            "tb_border.png" (S.$.tb_rear)
+        {else}
+            (L.$.TargetType) "w2" $= (L.$.TargetType) "W2" $= ||
+            {if}
+                1 (S.L.TB_2x1)
+                "tb_border.png" (S.$.tb_front)
+                "tb_border.png" (S.$.tb_rear)  
+            {else}
+                (L.$.TargetType) "w2l" $= (L.$.TargetType) "W2L" $= ||
+                {if}
+                    1 (S.L.TB_2x1L)
+                    "tb_border.png" (S.$.tb_front)
+                    "tb_border.png" (S.$.tb_rear)  
+                {else}
+                    (L.$.TargetType) "w2r" $= (L.$.TargetType) "W2R" $= ||
+                    {if}
+                        1 (S.L.TB_2x1R)
+                        "tb_border.png" (S.$.tb_front)
+                        "tb_border.png" (S.$.tb_rear)  
+                    {else}
+                        (L.$.TargetType) "w3" $= (L.$.TargetType) "W3" $= ||
+                        {if}
+                            1 (S.L.TB_3x1)
+                            "tb_border.png" (S.$.tb_front)
+                            "tb_border.png" (S.$.tb_rear)
+                        {else}
+                            (L.$.TargetType) "w3l" $= (L.$.TargetType) "W3L" $= ||
+                            {if}
+                                1 (S.L.TB_3x1L)
+                                "tb_border.png" (S.$.tb_front)
+                                "tb_border.png" (S.$.tb_rear)
+                            {else}
+                                (L.$.TargetType) "w3r" $= (L.$.TargetType) "W3R" $= ||
+                                {if}
+                                    1 (S.L.TB_3x1R)
+                                    "tb_border.png" (S.$.tb_front)
+                                    "tb_border.png" (S.$.tb_rear)
+                                {else}
+                                    (L.$.TargetType) "w3j" $= (L.$.TargetType) "W3J" $= ||
+                                    {if}
+                                        1 (S.L.TB_3x1J)
+                                        "tb_border.png" (S.$.tb_front)
+                                        "tb_border.png" (S.$.tb_rear)
+                                    {endif}
+                                {endif}
+                            {endif}
+                        {endif}
+                    {endif}
+                {endif}
+            {endif}
+        {endif}
+    {endif}
+{endif}
+	
+(L.$.TargetType) "w4" $= (L.$.TargetType) "W4" $= ||
+    {if}
+        1 (S.L.TB_4x1)
+        "signaltargetborder4x1.png" (S.$.tb_front)
+        "signaltargetborder4x1.png" (S.$.tb_rear)
+    {else}
+        (L.$.TargetType) "w4l" $= (L.$.TargetType) "W4L" $= ||
+        {if}
+            1 (S.L.TB_4x1L)
+            "signaltargetborder4x1.png" (S.$.tb_front)
+            "signaltargetborder4x1.png" (S.$.tb_rear)
+        {else}
+            (L.$.TargetType) "w4r" $= (L.$.TargetType) "W4R" $= ||
+            {if}
+                1 (S.L.TB_4x1R)
+                "signaltargetborder4x1.png" (S.$.tb_front)
+                "signaltargetborder4x1.png" (S.$.tb_rear)
+            {else}
+                (L.$.TargetType) "w4j" $= (L.$.TargetType) "W4J" $= ||
+                {if}
+                    1 (S.L.TB_4x1J)
+                    "signaltargetborder4x1.png" (S.$.tb_front)
+                    "signaltargetborder4x1.png" (S.$.tb_rear)
+                {endif}
+            {endif}
+        {endif}
+    {endif}
+	
+(L.$.TargetType) "nb4" $= (L.$.TargetType) "NB4" $= ||
+    {if}
+        1 (S.L.TB_4x1)
+        "signaltarget4x1.png" (S.$.tb_front)
+        "signaltarget4x1.png" (S.$.tb_rear)
+    {else}
+        (L.$.TargetType) "nb4l" $= (L.$.TargetType) "NB4L" $= ||
+        {if}
+            1 (S.L.TB_4x1L)
+            "signaltarget4x1.png" (S.$.tb_front)
+            "signaltarget4x1.png" (S.$.tb_rear)
+        {else}
+            (L.$.TargetType) "nb4r" $= (L.$.TargetType) "NB4R" $= ||
+            {if}
+                1 (S.L.TB_4x1R)
+                "signaltarget4x1.png" (S.$.tb_front)
+                "signaltarget4x1.png" (S.$.tb_rear)
+            {else}
+                (L.$.TargetType) "nb4j" $= (L.$.TargetType) "NB4J" $= ||
+                {if}
+                    1 (S.L.TB_4x1J)
+                    "signaltarget4x1.png" (S.$.tb_front)
+                    "signaltarget4x1.png" (S.$.tb_rear)
+                {endif}
+            {endif}
+        {endif}
+    {endif}
+	
+(L.$.TargetType) "b4" $= (L.$.TargetType) "B4" $= ||
+    {if}
+        1 (S.L.TB_4x1)
+        "signaltargetborder4x1.png" (S.$.tb_front)
+        "signaltarget4x1.png" (S.$.tb_rear)
+    {else}
+        (L.$.TargetType) "b4l" $= (L.$.TargetType) "B4L" $= ||
+        {if}
+            1 (S.L.TB_4x1L)
+            "signaltargetborder4x1.png" (S.$.tb_front)
+            "signaltarget4x1.png" (S.$.tb_rear)
+        {else}
+            (L.$.TargetType) "b4r" $= (L.$.TargetType) "B4R" $= ||
+            {if}
+                1 (S.L.TB_4x1R)
+                "signaltargetborder4x1.png" (S.$.tb_front)
+                "signaltarget4x1.png" (S.$.tb_rear)
+            {else}
+                (L.$.TargetType) "b4j" $= (L.$.TargetType) "B4J" $= ||
+                {if}
+                    1 (S.L.TB_4x1J)
+                    "signaltargetborder4x1.png" (S.$.tb_front)
+                    "signaltarget4x1.png" (S.$.tb_rear)
+                {endif}
+            {endif}
+        {endif}
+    {endif}
+
+    (L.$.TargetType) "y1" $= (L.$.TargetType) "Y1" $= ||
+    {if}
+        1 (S.L.TB_1x1)
+        "tb_yellow.png" (S.$.tb_front)
+        "tb_yellow.png" (S.$.tb_rear)
+    {else}
+        (L.$.TargetType) "y1l" $= (L.$.TargetType) "Y1L" $= ||
+        {if}
+            1 (S.L.TB_1x1L)
+            "tb_yellow.png" (S.$.tb_front)
+            "tb_yellow.png" (S.$.tb_rear)
+        {else}
+            (L.$.TargetType) "y1r" $= (L.$.TargetType) "Y1R" $= ||
+            {if}
+                1 (S.L.TB_1x1L)
+                "tb_yellow.png" (S.$.tb_front)
+                "tb_yellow.png" (S.$.tb_rear)
+            {else}
+                (L.$.TargetType) "y2" $= (L.$.TargetType) "Y2" $= ||
+                {if}
+                    1 (S.L.TB_2x1)
+                    "tb_yellow.png" (S.$.tb_front)
+                    "tb_yellow.png" (S.$.tb_rear)  
+                {else}
+                    (L.$.TargetType) "y2l" $= (L.$.TargetType) "Y2L" $= ||
+                    {if}
+                        1 (S.L.TB_2x1L)
+                        "tb_yellow.png" (S.$.tb_front)
+                        "tb_yellow.png" (S.$.tb_rear)  
+                    {else}
+                        (L.$.TargetType) "y2r" $= (L.$.TargetType) "Y2R" $= ||
+                        {if}
+                            1 (S.L.TB_2x1R)
+                            "tb_yellow.png" (S.$.tb_front)
+                            "tb_yellow.png" (S.$.tb_rear)  
+                        {else}
+                            (L.$.TargetType) "y3" $= (L.$.TargetType) "Y3" $= ||
+                            {if}
+                                1 (S.L.TB_3x1)
+                                "tb_yellow.png" (S.$.tb_front)
+                                "tb_yellow.png" (S.$.tb_rear)
+                            {else}
+                                (L.$.TargetType) "y3l" $= (L.$.TargetType) "Y3L" $= ||
+                                {if}
+                                    1 (S.L.TB_3x1L)
+                                    "tb_yellow.png" (S.$.tb_front)
+                                    "tb_yellow.png" (S.$.tb_rear)
+                                {else}
+                                    (L.$.TargetType) "y3r" $= (L.$.TargetType) "Y3R" $= ||
+                                    {if}
+                                        1 (S.L.TB_3x1R)
+                                        "tb_yellow.png" (S.$.tb_front)
+                                        "tb_yellow.png" (S.$.tb_rear)
+                                    {else}
+                                        (L.$.TargetType) "y3j" $= (L.$.TargetType) "Y3J" $= ||
+                                        {if}
+                                            1 (S.L.TB_3x1J)
+                                            "tb_yellow.png" (S.$.tb_front)
+                                            "tb_yellow.png" (S.$.tb_rear)
+                                        {endif}
+                                    {endif}
+                                {endif}
+                            {endif}
+                        {endif}
+                    {endif}
+                {endif}
+            {endif}
+        {endif}
+    {endif}
+
+(L.$.GreenDisplay) "pt" $= (L.$.GreenDisplay) "b" $= (L.$.GreenDisplay) "t" $= (L.$.GreenDisplay) "ptal" $= (L.$.GreenDisplay) "ptas" $= (L.$.GreenDisplay) "ptar" $= (L.$.RedorFullDisplay) "b" $= (L.$.RedorFullDisplay) "t" $= ||
+    {if}
+        "CustomAspects\Glow\signal_glow_white.png" (S.$.sg_green)
+    {else}
+        "signal_glow_green.png" (S.$.sg_green)
+    {endif}
+{end}

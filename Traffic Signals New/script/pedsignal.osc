@@ -1,0 +1,193 @@
+'######################## 
+'Traffic Light Countdown Script
+'########################
+
+'Traffic Light Countdown at specific time before changing
+
+'Script Version: 1.0
+
+'Needs:
+'- Set S.L.Yellow_Start_Countdown for Red light countdown time in seconds
+
+
+{init}
+0 (S.L.Yellow_Start_Countdown) (S.L.Yellow_light_duration)
+
+{end}
+
+{frame}
+(L.L.Yellow_light_duration) 0 =
+{if}
+    (L.$.Yellow_time) $StrToFloat (S.L.Yellow_light_duration)
+{endif}
+
+(L.L.TrafficLightPhase) s0
+
+l0 6 >= l0 8 <= && (S.L.Green)
+
+l0 0 >= l0 5 <= && (S.L.Red)
+
+(L.$.IsCountdownTimer) "1" $=
+{if}
+    l0 9 >= l0 11 <= &&
+	{if}
+    (L.L.Yellow_time_elapsed) (L.S.Timegap) + (S.L.Yellow_time_elapsed)
+    (L.L.Yellow_light_duration) (L.L.Yellow_time_elapsed) - (S.L.Yellow_time_left)
+    (L.L.Yellow_time_left) " 2" $IntToStrEnh (S.$.Yellow_Time_Text)
+    (L.$.Yellow_Countdowntime) $StrToFloat (S.L.Yellow_Start_Countdown)
+
+    (S.L.Yellow_time_left) (S.L.Yellow_Start_Countdown) <= (S.L.Yellow_time_left) 0 > &&
+    {if}
+        1 (S.L.Yellow_Timer_Vis)
+    {else}
+        0 (S.L.Yellow_Timer_Vis)
+    {endif}
+	{else}
+        0 (S.L.Yellow_time_elapsed)
+        0 (S.L.Yellow_Timer_Vis)
+    {endif}
+    1 (S.L.Refresh_Strings)
+{else}
+    l0 9 >= l0 11 <= &&
+	{if}
+		(L.L.Timer) (L.S.Timegap) + (S.L.Timer)
+		s0 0.35 <
+		{if}
+		0 (S.L.Red)
+		{else}
+		l0 1 <
+		{if}
+		1 (S.L.Red)
+		{else}
+		0 (S.L.Timer)
+		{endif}
+		{endif}
+	{endif}
+{endif}
+
+(L.$.RedorFullDisplay) "" $= 
+   {if} 
+           "200mm_r" (L.$.r_style) $+ (S.$.r_red) 
+   {else} 
+           "CustomAspects\200mm\" (L.$.RedorFullDisplay) (L.$.r_style) $+ $+ (S.$.r_red) 
+   {endif}
+   
+(L.$.YellowDisplay) "" $= 
+   {if}
+    (L.$.RedorFullDisplay) "" $= 
+    {if} 
+            "200mm_r" (L.$.r_style) $+ (S.$.r_yellow) 
+    {else} 
+            "CustomAspects\200mm\" (L.$.RedorFullDisplay) (L.$.r_style) $+ $+ (S.$.r_yellow) 
+    {endif}
+   {else}
+       "CustomAspects\200mm\" (L.$.YellowDisplay) (L.$.r_style) $+ $+ (S.$.r_yellow) 
+   {endif}
+   
+(L.$.GreenDisplay) "" $= 
+   {if}
+    (L.$.RedorFullDisplay) "" $= 
+    {if} 
+            "200mm_r" (L.$.r_style) $+ (S.$.r_green) 
+    {else} 
+            "CustomAspects\200mm\" (L.$.RedorFullDisplay) (L.$.r_style) $+ $+ (S.$.r_green) 
+    {endif}
+   {else}
+       "CustomAspects\200mm\" (L.$.GreenDisplay) (L.$.r_style) $+ $+ (S.$.r_green) 
+   {endif}
+
+(L.$.VisorType) "Open" $=
+{if}
+    (L.$.NoVisors) "1" $=
+	{if}
+        1 (S.L.Open_1)
+    {endif}
+
+    (L.$.NoVisors) "2" $=
+	{if}
+        1 (S.L.Open_2)
+    {endif}
+
+    (L.$.NoVisors) "3" $=
+	{if}
+        1 (S.L.Open_3)
+    {endif}
+
+    (L.$.NoVisors) "4" $=
+	{if}
+        1 (S.L.Open_4)
+    {endif}
+{endif}
+	
+(L.$.VisorType) "200mm" $=
+{if}
+    (L.$.NoVisors) "1" $=
+	{if}
+        1 (S.L.200mm_1)
+    {endif}
+
+    (L.$.NoVisors) "2" $=
+	{if}
+        1 (S.L.200mm_2)
+    {endif}
+
+    (L.$.NoVisors) "3" $=
+	{if}
+        1 (S.L.200mm_3)
+    {endif}
+
+    (L.$.NoVisors) "4" $=
+	{if}
+        1 (S.L.200mm_4)
+    {endif}
+{endif}
+
+(L.$.VisorType) "300mm" $=
+{if}
+    (L.$.NoVisors) "1" $=
+	{if}
+        1 (S.L.300mm_1)
+    {endif}
+
+    (L.$.NoVisors) "2" $=
+	{if}
+        1 (S.L.300mm_2)
+    {endif}
+
+    (L.$.NoVisors) "3" $=
+	{if}
+        1 (S.L.300mm_3)
+    {endif}
+
+    (L.$.NoVisors) "4" $=
+	{if}
+        1 (S.L.300mm_4)
+    {endif}
+{endif}
+
+(L.$.VisorType) "Square" $=
+{if}
+    (L.$.NoVisors) "1" $=
+	{if}
+        1 (S.L.Square_1)
+    {endif}
+
+    (L.$.NoVisors) "2" $=
+	{if}
+        1 (S.L.Square_2)
+    {endif}
+
+    (L.$.NoVisors) "3" $=
+	{if}
+        1 (S.L.Square_3)
+    {endif}
+
+    (L.$.NoVisors) "4" $=
+	{if}
+        1 (S.L.Square_4)
+    {endif}
+{endif}
+
+
+
+{end}

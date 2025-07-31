@@ -1,0 +1,44 @@
+
+{init}
+
+{end}
+
+{frame}
+    (L.L.TrafficLightPhase) s0 6 >= l0 11 <= &&
+    {if}
+		(L.L.Y_Timer) (L.S.Timegap) + (S.L.Y_Timer) 0.5 >
+		{if}
+			(L.L.Yellow) ! (S.L.Yellow)
+			0 (S.L.Y_Timer)
+		{endif}
+	{else}
+		0 (S.L.Yellow) (S.L.Y_Timer)
+	{endif}
+
+        (L.$.Visor) "o" $=
+            {if}
+                1 (S.L.O_Visor)
+            {end}
+
+        (L.$.Visor) "2" $=
+            {if}
+                1 (S.L.2_Visor)
+            {end}
+
+        (L.$.Visor) "3" $=
+            {if}
+                1 (S.L.3_Visor)
+            {end}
+        
+        (L.$.Visor) "s" $=
+            {if}
+                1 (S.L.S_Visor)
+            {end}
+
+        (L.$.Braums) "1" $=
+            {if}
+                "signalaspects_braums.png" (S.$.r_braums)
+            {else}
+                "signalaspects.png" (S.$.r_braums)
+            {endif}
+{end}

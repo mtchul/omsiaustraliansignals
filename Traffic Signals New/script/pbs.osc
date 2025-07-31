@@ -1,0 +1,27 @@
+{frame}
+	(L.$.PedButtonDirection) "" $=
+	{if}
+		"pedbuttonarrow_both.png" (S.$.Ped_Button_Image)
+	{else}
+		"pb" (L.$.PedButtonDirection) ".png" $+ $+ (S.$.Ped_Button_Image)
+	{endif}
+	
+(L.$.PoleColour) "" $=
+{if}
+    "pole_grey.png" (S.$.t_pole)
+{else}
+    "pole_" (L.$.PoleColour) ".png" $+ $+ (S.$.t_pole)
+{endif}
+
+(L.$.CapColour) "" $= (L.$.PoleColour) "nz" $= &&
+{if}
+	"pole_black.png" (S.$.t_cap)
+	{else}
+		(L.$.CapColour) "" $=
+			{if}
+    			"cap2.bmp" (S.$.t_cap)
+			{else}
+    			"pole_" (L.$.CapColour) ".png" $+ $+ (S.$.t_cap)
+			{endif}
+		{endif}
+{end}

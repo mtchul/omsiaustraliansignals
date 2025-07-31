@@ -1,0 +1,149 @@
+{frame}
+
+    (L.$.VisorType) 2 $length =
+    {if}
+        (L.$.VisorType) "o1" $= (L.$.VisorType) "O1" $= ||
+        {if}
+            1 (S.L.Open_1)
+        {else}
+            (L.$.VisorType) "o2" $= (L.$.VisorType) "O2" $= ||
+            {if}
+                1 (S.L.Open_2)
+            {else}
+                (L.$.VisorType) "o3" $= (L.$.VisorType) "O3" $= ||
+                {if}
+                    1 (S.L.Open_3)
+                {else}
+                    (L.$.VisorType) "o4" $= (L.$.VisorType) "O4" $= ||
+                    {if}
+                        1 (S.L.Open_4)
+                    {endif}
+                {endif}
+            {endif}
+        {endif}
+    
+        (L.$.VisorType) "21" $= 
+        {if}
+            1 (S.L.200mm_1)
+        {else}
+            (L.$.VisorType) "22" $=
+            {if}
+                1 (S.L.200mm_2)
+            {else}
+                (L.$.VisorType) "23" $=
+                {if}
+                    1 (S.L.200mm_3)
+                {else}
+                    (L.$.VisorType) "24" $= 
+                    {if}
+                        1 (S.L.200mm_4)
+                    {endif}
+                {endif}
+            {endif}
+        {endif}
+    
+        (L.$.VisorType) "31" $= 
+        {if}
+            1 (S.L.300mm_1)
+        {else}
+            (L.$.VisorType) "32" $=
+            {if}
+                1 (S.L.300mm_2)
+            {else}
+                (L.$.VisorType) "33" $=
+                {if}
+                    1 (S.L.300mm_3)
+                {else}
+                    (L.$.VisorType) "34" $= 
+                    {if}
+                        1 (S.L.300mm_4)
+                    {endif}
+                {endif}
+            {endif}
+        {endif}
+    
+        (L.$.VisorType) "s1" $= (L.$.VisorType) "S1" $= ||
+        {if}
+            1 (S.L.Square_1)
+        {else}
+            (L.$.VisorType) "s2" $= (L.$.VisorType) "S2" $= ||
+            {if}
+                1 (S.L.Square_2)
+            {else}
+                (L.$.VisorType) "s3" $= (L.$.VisorType) "S3" $= ||
+                {if}
+                    1 (S.L.Square_3)
+                {else}
+                    (L.$.VisorType) "s4" $= (L.$.VisorType) "S4" $= ||
+                    {if}
+                        1 (S.L.Square_4)
+                    {endif}
+                {endif}
+            {endif}
+        {endif}
+    {endif}
+    
+    (L.$.VisorType) 3 $length =
+    {if}
+        (L.$.VisorType) $length 1 - $cutEnd  "o" $=  (L.$.VisorType) $length 1 - $cutEnd  "O" $=  || 
+        {if}
+            1 (S.L.v_g_o)
+        {else}
+            (L.$.VisorType) $length 1 - $cutEnd  "2" $= 
+            {if}
+                1 (S.L.v_g_2)
+            {else}
+                (L.$.VisorType) $length 1 - $cutEnd  "3" $=
+                {if}
+                    1 (S.L.v_g_3)
+                {else}
+                    (L.$.VisorType) $length 1 - $cutEnd  "s" $=  (L.$.VisorType) $length 1 - $cutEnd  "S" $=  ||
+                    {if}
+                        1 (S.L.v_g_s)
+                    {endif}
+                {endif}
+            {endif}
+        {endif}
+        
+        (L.$.VisorType) 1 $cutBegin 1 $cutEnd  "o" $=  (L.$.VisorType) 1 $cutBegin 1 $cutEnd  "O" $=  ||
+        {if}
+            1 (S.L.v_y_o)
+        {else}
+            (L.$.VisorType) 1 $cutBegin 1 $cutEnd  "2" $=
+            {if}
+                1 (S.L.v_y_2)
+            {else}
+                (L.$.VisorType) 1 $cutBegin 1 $cutEnd  "3" $=
+                {if}
+                    1 (S.L.v_y_3)
+                {else}
+                    (L.$.VisorType) 1 $cutBegin 1 $cutEnd  "s" $=  (L.$.VisorType) 1 $cutBegin 1 $cutEnd  "S" $=  ||
+                    {if}
+                        1 (S.L.v_y_s)
+                    {endif}
+                {endif}
+            {endif}
+        {endif}
+        
+        (L.$.VisorType) 2 $cutBegin  "o" $=  (L.$.VisorType) 2 $cutBegin  "O" $=  ||
+        {if}
+            1 (S.L.v_r_o)
+        {else}
+            (L.$.VisorType) 2 $cutBegin  "2" $=
+            {if}
+                1 (S.L.v_r_2)
+            {else}
+                (L.$.VisorType) 2 $cutBegin  "3" $=
+                {if}
+                    1 (S.L.v_r_3)
+                {else}
+                    (L.$.VisorType) 2 $cutBegin  "s" $=  (L.$.VisorType) 2 $cutBegin  "S" $=  ||
+                    {if}
+                        1 (S.L.v_r_s)
+                    {endif}
+                {endif}
+            {endif}
+        {endif}
+    {endif}
+
+{end}

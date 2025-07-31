@@ -1,0 +1,7 @@
+VisorType
+NoVisors
+TargetType
+TargetSize
+AspectSide
+tb_front
+tb_rear

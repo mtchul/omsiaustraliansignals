@@ -1,0 +1,6 @@
+PedButtonDirection
+Ped_Button_Image
+PoleColour
+CapColour
+t_pole
+t_cap

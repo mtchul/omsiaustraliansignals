@@ -1,0 +1,28 @@
+'#######################################
+'Australian Pedestrian Light
+'#######################################
+
+'Phases:
+' 0..5: Red
+' 6..8: Green
+'9..11: Flashing Red
+'Else : Off
+
+{init}
+	(L.S.Time) 3600 / trunc (S.L.Hour)
+{end}
+
+{frame}
+	(L.L.TrafficLightPhase) s0
+	
+	l0 6 >= l0 8 <= && (S.L.Green)
+	
+	! (S.L.Red)
+
+	(L.$.PedButtonDirection) "" $=
+	{if}
+		"pedbuttonarrow_both.png" (S.$.Ped_Button_Image)
+	{else}
+		"pb" (L.$.PedButtonDirection) ".png" $+ $+ (S.$.Ped_Button_Image)
+	{endif}
+{end}

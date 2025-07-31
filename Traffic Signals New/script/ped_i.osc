@@ -1,0 +1,42 @@
+'######################
+'Traffic Light for Cars
+'######################
+
+'Traffic Light for Cars
+'Phase 0..2: red
+'Phase 3..5: red-yellow
+'Phase 6..8: green
+'Phase 9..11: yellow
+'Else: off
+
+'(c) 27.3.2014 FF3170
+
+
+{frame}
+	1 (S.L.Illumination)
+
+	(L.L.TrafficLightPhase) s0 0 >= l0 5 <= &&
+	{if}
+		(L.L.Timer_Red) (L.S.Timegap) 10 * + 0 max 1 min (S.L.Timer_Red) sqr (S.L.Red)
+		(L.L.Timer_Yellow) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Yellow) sqr (S.L.Yellow)
+		(L.L.Timer_Green) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Green) sqr (S.L.Green)
+	{else}
+			(L.L.TrafficLightPhase) s0 6 >= l0 8 <= &&
+			{if}
+				(L.L.Timer_Red) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Red) sqr (S.L.Red)
+				(L.L.Timer_Yellow) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Yellow) sqr (S.L.Yellow)
+				(L.L.Timer_Green) (L.S.Timegap) 10 * + 0 max 1 min (S.L.Timer_Green) sqr (S.L.Green)
+			{else}
+				(L.L.TrafficLightPhase) s0 9 >= l0 11 <= &&
+		{if}
+			(L.L.Timer_Green) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Green) sqr (S.L.Green)
+			(L.L.Timer_Red_flash) (L.S.Timegap) + (S.L.Timer_Red_flash) (L.L.Timer_Red_flash) trunc - 0.5 >
+			{if}
+				(L.L.Timer_Red) (L.S.Timegap) 10 * + 0 max 1 min (S.L.Timer_Red) sqr (S.L.Red)
+			{else}
+				(L.L.Timer_Red) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Red) sqr (S.L.Red)
+				{endif}
+			{endif}
+		{endif}
+	{endif}
+{end}

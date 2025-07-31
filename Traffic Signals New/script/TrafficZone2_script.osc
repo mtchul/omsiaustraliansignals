@@ -1,0 +1,24 @@
+{init}
+	0 (S.L.Timer)
+	0 (S.L.Yellow1) (S.L.Yellow1)
+{end}
+
+{frame}
+'If daytime matches the working hours of the light, we turn it on
+	(L.S.Time) 3600 / s0
+
+	l0 8 >=
+	l0 9.5 <= &&
+	l0 14.5 >=
+	l0 16 <= &&
+	||
+	{if}
+		(L.L.Timer) (L.S.Timegap) + (S.L.Timer) 0.5 >
+		{if}
+			(L.L.yellow1) (S.L.yellow2) ! (S.L.yellow1)
+			0 (S.L.Timer)
+		{endif}
+	{else}
+		0 (S.L.yellow1) (S.L.yellow2) (S.L.Timer)
+	{endif}
+{end}

@@ -1,0 +1,8 @@
+{frame}
+    (L.L.TrafficLightPhase) s0 6 >= l0 8 <= && !
+	{if}
+        1 (S.L.Red)
+    {else}
+        0 (S.L.Red)
+	{endif}
+{end}

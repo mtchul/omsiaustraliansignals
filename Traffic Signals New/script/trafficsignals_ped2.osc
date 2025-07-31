@@ -1,0 +1,231 @@
+    {init}
+        0 (S.L.Yellow_Start_Countdown) (S.L.Yellow_light_duration)
+    {end}
+
+   {frame} 
+    (L.L.Yellow_light_duration) 0 =
+    {if}
+        (L.$.Yellow_time) $StrToFloat (S.L.Yellow_light_duration)
+    {endif}
+    
+    (L.L.TrafficLightPhase) s0
+    
+
+        (L.$.1Braums2Incandescent) "2" $=
+        {if}
+            1 (S.L.Illumination)
+    
+            (L.L.TrafficLightPhase) s0 0 >= l0 5 <= &&
+            {if}
+                (L.L.Timer_Red_i) (L.S.Timegap) 10 * + 0 max 1 min (S.L.Timer_Red_i) sqr (S.L.Red_i)
+                (L.L.Timer_Yellow_i) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Yellow_i) sqr (S.L.Yellow_i)
+                (L.L.Timer_Green_i) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Green_i) sqr (S.L.Green_i)
+            {else}
+                (L.L.TrafficLightPhase) s0 6 >= l0 8 <= &&
+                {if}
+                    (L.L.Timer_Red_i) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Red_i) sqr (S.L.Red_i)
+                    (L.L.Timer_Yellow_i) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Yellow_i) sqr (S.L.Yellow_i)
+                    (L.L.Timer_Green_i) (L.S.Timegap) 10 * + 0 max 1 min (S.L.Timer_Green_i) sqr (S.L.Green_i)
+                {else}
+                    (L.L.TrafficLightPhase) s0 9 >= l0 11 <= &&
+                    {if}
+                        (L.L.Timer_Green_i) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Green_i) sqr (S.L.Green_i)
+                        (L.L.Timer_Red_flash_i) (L.S.Timegap) + (S.L.Timer_Red_flash_i) (L.L.Timer_Red_flash_i) trunc - 0.5 >
+                        {if}
+                            (L.L.Timer_Red_i) (L.S.Timegap) 10 * + 0 max 1 min (S.L.Timer_Red_i) sqr (S.L.Red_i)
+                        {else}
+                            (L.L.Timer_Red_i) (L.S.Timegap) 5 * - 0 max 1 min (S.L.Timer_Red_i) sqr (S.L.Red_i)
+                        {endif}
+                    {endif}
+                {endif}
+            {endif}
+        {else}
+            l0 6 >= l0 8 <= && (S.L.Green)
+
+            l0 0 >= l0 5 <= && (S.L.Red)
+            
+            (L.$.IsCountdownTimer) "1" $=
+            {if}
+                l0 9 >= l0 11 <= &&
+                {if}
+                (L.L.Yellow_time_elapsed) (L.S.Timegap) + (S.L.Yellow_time_elapsed)
+                (L.L.Yellow_light_duration) (L.L.Yellow_time_elapsed) - (S.L.Yellow_time_left)
+                (L.L.Yellow_time_left) " 2" $IntToStrEnh (S.$.Yellow_Time_Text)
+                (L.$.Yellow_Countdowntime) $StrToFloat (S.L.Yellow_Start_Countdown)
+            
+                (S.L.Yellow_time_left) (S.L.Yellow_Start_Countdown) <= (S.L.Yellow_time_left) 0 > &&
+                {if}
+                    1 (S.L.Yellow_Timer_Vis)
+                {else}
+                    0 (S.L.Yellow_Timer_Vis)
+                {endif}
+                {else}
+                    0 (S.L.Yellow_time_elapsed)
+                    0 (S.L.Yellow_Timer_Vis)
+                {endif}
+                1 (S.L.Refresh_Strings)
+            {else}
+                l0 9 >= l0 11 <= &&
+                {if}
+                    (L.L.Timer) (L.S.Timegap) + (S.L.Timer)
+                    s0 0.35 <
+                    {if}
+                    0 (S.L.Red)
+                    {else}
+                    l0 1 <
+                    {if}
+                    1 (S.L.Red)
+                    {else}
+                    0 (S.L.Timer)
+                    {endif}
+                    {endif}
+                {endif}
+    {endif}
+{endif}
+
+    (L.$.VisorType) "o1" $= (L.$.VisorType) "O1" $= ||
+    {if}
+        1 (S.L.Open_1)
+    {else}
+        (L.$.VisorType) "o2" $= (L.$.VisorType) "O2" $= ||
+        {if}
+            1 (S.L.Open_2)
+        {else}
+            (L.$.VisorType) "o3" $= (L.$.VisorType) "O3" $= ||
+            {if}
+                1 (S.L.Open_3)
+            {else}
+                (L.$.VisorType) "o4" $= (L.$.VisorType) "O4" $= ||
+                {if}
+                    1 (S.L.Open_4)
+                {endif}
+            {endif}
+        {endif}
+    {endif}
+    
+    (L.$.VisorType) "21" $= 
+    {if}
+        1 (S.L.200mm_1)
+    {else}
+        (L.$.VisorType) "22" $=
+        {if}
+            1 (S.L.200mm_2)
+        {else}
+            (L.$.VisorType) "23" $=
+            {if}
+                1 (S.L.200mm_3)
+            {else}
+                (L.$.VisorType) "24" $= 
+                {if}
+                    1 (S.L.200mm_4)
+                {endif}
+            {endif}
+        {endif}
+    {endif}
+    
+    (L.$.VisorType) "31" $= 
+    {if}
+        1 (S.L.300mm_1)
+    {else}
+        (L.$.VisorType) "32" $=
+        {if}
+            1 (S.L.300mm_2)
+        {else}
+            (L.$.VisorType) "33" $=
+            {if}
+                1 (S.L.300mm_3)
+            {else}
+                (L.$.VisorType) "34" $= 
+                {if}
+                    1 (S.L.300mm_4)
+                {endif}
+            {endif}
+        {endif}
+    {endif}
+    
+    (L.$.VisorType) "s1" $= (L.$.VisorType) "S1" $= ||
+    {if}
+        1 (S.L.Square_1)
+    {else}
+        (L.$.VisorType) "s2" $= (L.$.VisorType) "S2" $= ||
+        {if}
+            1 (S.L.Square_2)
+        {else}
+            (L.$.VisorType) "s3" $= (L.$.VisorType) "S3" $= ||
+            {if}
+                1 (S.L.Square_3)
+            {else}
+                (L.$.VisorType) "s4" $= (L.$.VisorType) "S4" $= ||
+                {if}
+                    1 (S.L.Square_4)
+                {endif}
+            {endif}
+        {endif}
+    {endif}
+
+    (L.$.1Braums2Incandescent) "1" $=
+    {if}
+       (L.$.RedorFullDisplay) "" $= 
+       {if} 
+               "200mm_p_b.png" (S.$.r_red) 
+       {else} 
+               "CustomAspects\200mm\" (L.$.RedorFullDisplay) "_b.png" $+ $+ (S.$.r_red) 
+       {endif}
+       
+       (L.$.GreenDisplay) "" $= 
+       {if}
+        (L.$.RedorFullDisplay) "" $= 
+        {if} 
+                "200mm_p_b.png" (S.$.r_green) 
+        {else} 
+                "CustomAspects\200mm\" (L.$.RedorFullDisplay) "_b.png" $+ $+ (S.$.r_green) 
+        {endif}
+       {else}
+           "CustomAspects\200mm\" (L.$.GreenDisplay) "_b.png" $+ $+ (S.$.r_green) 
+       {endif}
+    {endif}
+    
+    (L.$.1Braums2Incandescent) "" $=
+    {if}
+       (L.$.RedorFullDisplay) "" $= 
+       {if} 
+               "200mm_p.png" (S.$.r_red) 
+       {else} 
+               "CustomAspects\200mm\" (L.$.RedorFullDisplay) ".png" $+ $+ (S.$.r_red) 
+       {endif}
+       
+       (L.$.GreenDisplay) "" $= 
+       {if}
+        (L.$.RedorFullDisplay) "" $= 
+        {if} 
+                "200mm_p.png" (S.$.r_green) 
+        {else} 
+                "CustomAspects\200mm\" (L.$.RedorFullDisplay) ".png" $+ $+ (S.$.r_green) 
+        {endif}
+       {else}
+           "CustomAspects\200mm\" (L.$.GreenDisplay) $+ (S.$.r_green) 
+       {endif}
+    {endif}
+    
+    (L.$.1Braums2Incandescent) "2" $=
+    {if}
+       (L.$.RedorFullDisplay) "" $= 
+       {if} 
+               "200mm_p_i.png" (S.$.r_red) 
+       {else} 
+               "CustomAspects\200mm\" (L.$.RedorFullDisplay) "_i.png" $+ $+ (S.$.r_red) 
+       {endif}
+       
+       (L.$.GreenDisplay) "" $= 
+       {if}
+        (L.$.RedorFullDisplay) "" $= 
+       {if} 
+               "200mm_p_i.png" (S.$.r_green) 
+       {else} 
+               "CustomAspects\200mm\" (L.$.RedorFullDisplay) "_i.png" $+ $+ (S.$.r_green) 
+       {endif}
+       {else}
+                "CustomAspects\200mm\" (L.$.GreenDisplay) "_i.png" $+ $+ (S.$.r_green) 
+       {endif}
+    {endif}
+{end}
