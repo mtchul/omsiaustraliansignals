@@ -4,11 +4,12 @@ This file was created with the Omsi Object Editing tool
 Y Round
 
 [groups]
-6
+7
 CreationsByMitchul
 Signage
 Traffic Signals
 200mm
+Old
 Body
 1 Aspect
 
