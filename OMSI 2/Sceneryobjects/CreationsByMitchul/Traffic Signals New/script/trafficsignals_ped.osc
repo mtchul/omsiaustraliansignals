@@ -83,6 +83,8 @@
     {endif}
 {endif}
 
+(L.$.VisorType) 2 $length =
+{if}
     (L.$.VisorType) "o1" $= (L.$.VisorType) "O1" $= ||
     {if}
         1 (S.L.Open_1)
@@ -102,7 +104,7 @@
             {endif}
         {endif}
     {endif}
-    
+
     (L.$.VisorType) "21" $= 
     {if}
         1 (S.L.200mm_1)
@@ -122,7 +124,7 @@
             {endif}
         {endif}
     {endif}
-    
+
     (L.$.VisorType) "31" $= 
     {if}
         1 (S.L.300mm_1)
@@ -142,7 +144,7 @@
             {endif}
         {endif}
     {endif}
-    
+
     (L.$.VisorType) "s1" $= (L.$.VisorType) "S1" $= ||
     {if}
         1 (S.L.Square_1)
@@ -162,6 +164,100 @@
             {endif}
         {endif}
     {endif}
+{endif}
+
+(L.$.VisorType) 3 $length =
+{if}
+    (L.$.VisorType) $length 1 - $cutEnd  "o" $=  (L.$.VisorType) $length 1 - $cutEnd  "O" $=  || 
+    {if}
+        1 (S.L.v_g_o)
+    {else}
+        (L.$.VisorType) $length 1 - $cutEnd  "2" $= 
+        {if}
+            1 (S.L.v_g_2)
+        {else}
+            (L.$.VisorType) $length 1 - $cutEnd  "3" $=
+            {if}
+                1 (S.L.v_g_3)
+            {else}
+                (L.$.VisorType) $length 1 - $cutEnd  "s" $=  (L.$.VisorType) $length 1 - $cutEnd  "S" $=  ||
+                {if}
+                    1 (S.L.v_g_s)
+                {else}
+                    (L.$.VisorType) $length 1 - $cutEnd  "h" $=  (L.$.VisorType) $length 1 - $cutEnd  "H" $=  ||
+                    {if}
+                        1 (S.L.v_g_h)
+                        {else}
+                            (L.$.VisorType) $length 1 - $cutEnd  "v" $=  (L.$.VisorType) $length 1 - $cutEnd  "V" $=  ||
+                                {if}
+                                    1 (S.L.v_g_v)
+                                {endif}
+                            {endif}
+                    {endif}
+                {endif}
+            {endif}
+        {endif}
+    
+    (L.$.VisorType) 1 $cutBegin 1 $cutEnd  "o" $=  (L.$.VisorType) 1 $cutBegin 1 $cutEnd  "O" $=  ||
+    {if}
+        1 (S.L.v_y_o)
+    {else}
+        (L.$.VisorType) 1 $cutBegin 1 $cutEnd  "2" $=
+        {if}
+            1 (S.L.v_y_2)
+        {else}
+            (L.$.VisorType) 1 $cutBegin 1 $cutEnd  "3" $=
+            {if}
+                1 (S.L.v_y_3)
+            {else}
+                (L.$.VisorType) 1 $cutBegin 1 $cutEnd  "s" $=  (L.$.VisorType) 1 $cutBegin 1 $cutEnd  "S" $=  ||
+                {if}
+                    1 (S.L.v_y_s)
+                    {else}
+                        (L.$.VisorType) 1 $cutBegin 1 $cutEnd  "h" $=  (L.$.VisorType) 1 $cutBegin 1 $cutEnd  "H" $=  ||
+                        {if}
+                            1 (S.L.v_y_h)
+                            {else}
+                                (L.$.VisorType) 1 $cutBegin 1 $cutEnd  "v" $=  (L.$.VisorType) 1 $cutBegin 1 $cutEnd  "V" $=  ||
+                                {if}
+                                    1 (S.L.v_y_v)
+                            {endif}
+                        {endif}
+                {endif}
+            {endif}
+        {endif}
+    {endif}
+    
+    (L.$.VisorType) 2 $cutBegin  "o" $=  (L.$.VisorType) 2 $cutBegin  "O" $=  ||
+    {if}
+        1 (S.L.v_r_o)
+    {else}
+        (L.$.VisorType) 2 $cutBegin  "2" $=
+        {if}
+            1 (S.L.v_r_2)
+        {else}
+            (L.$.VisorType) 2 $cutBegin  "3" $=
+            {if}
+                1 (S.L.v_r_3)
+            {else}
+                (L.$.VisorType) 2 $cutBegin  "s" $=  (L.$.VisorType) 2 $cutBegin  "S" $=  ||
+                {if}
+                    1 (S.L.v_r_s)
+                    {else}
+                        (L.$.VisorType) 2 $cutBegin  "h" $=  (L.$.VisorType) 2 $cutBegin  "H" $=  ||
+                        {if}
+                            1 (S.L.v_r_h)
+                            {else}
+                                (L.$.VisorType) 2 $cutBegin  "v" $=  (L.$.VisorType) 2 $cutBegin  "V" $=  ||
+                                {if}
+                                    1 (S.L.v_r_v)
+                                {endif}
+                            {endif}
+                {endif}
+            {endif}
+        {endif}
+    {endif}
+{endif}
 
     (L.$.RedorFullDisplay) "" $= 
         {if} 
@@ -204,4 +300,6 @@
         {endif}
     {endif}
     
+
+
 {end}
