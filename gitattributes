@@ -1,0 +1,56 @@
+# Generic non-LFS .gitattributes for OMSI projects
+# Adapted From https://github.com/Road-hog123/British-Road-Detailing-Pack-2/blob/master/.gitattributes
+
+# Set up OMSI encoding
+* eol=lf working-tree-encoding=UTF-8 encoding=UTF-8
+[attr]omsi text eol=crlf working-tree-encoding=CP1252 encoding=CP1252 -linguist-detectable
+[attr]omsiutf16 text diff working-tree-encoding=UTF-16LE-BOM eol=crlf
+
+# Model Files
+*.blend binary
+*.x text eol=crlf working-tree-encoding=CP1252 encoding=CP1252 linguist-language=DirectX-3D-File linguist-generated
+*.o3d binary
+
+# Sound Files
+*.wav binary
+
+# Texture Source Files
+*.pdn binary
+*.afphoto binary
+*.svg text eol=lf
+
+# Texture Files
+*.bmp binary
+*.dds binary
+*.png binary
+*.tga binary
+*.surf binary
+
+
+# Script Files
+*.osc omsi
+*.txt omsi
+
+# Config Files
+*.cfg omsi
+global.cfg omsiutf16
+*.map omsiutf16
+
+*.bus omsi
+*.ovh omsi
+*.cti omsi
+
+*.itx omsi
+*.oft omsi
+
+*.sco omsi
+*.sli omsi
+
+*.rdy binary
+
+# Read-me Files
+*.pdf binary
+
+# Repository Files
+.gitignore text
+.gitattributes text
